@@ -59,7 +59,19 @@ function renderStudent(doc){
             //Logic to delete the item
         let id = e.target.parentElement.getAttribute('data-id');
         db.collection('Users').doc(id).delete();
+        db.collection('Enrolled_workshop').where('Student_id', "==", doc.data().Id)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    window.alert(doc.id, " => ", doc.data());
+                });
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
         }
+        
         
     });
 
