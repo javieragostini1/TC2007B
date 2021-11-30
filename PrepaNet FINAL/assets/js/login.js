@@ -9,7 +9,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     if(user != null && (user.email == "ana.zuniga@tec.mx" || user.email == "mpamanes@tec.mx")){
       // window.location.replace("./control.html")
 
-      window.location.replace("../index.html")
+      window.location.replace("./index.html")
 
       var email_id = user.email;
       document.getElementById("user_para").innerHTML = "Welcome User : " + email_id;

@@ -59,11 +59,22 @@ function renderStudent(doc){
     cross.addEventListener('click', (e) => {
         e.stopPropagation();
         var result = confirm("Estas seguro de que deseas eliminar a " +
-        doc.data().Name + " ");
+        doc.data().Id);
         if (result) {
             //Logic to delete the item
         let id = e.target.parentElement.getAttribute('data-id');
         db.collection('Available_workshop').doc(id).delete();
+        db.collection('Enrolled_workshop').where('AWorkshop_id', "==", doc.data().Id)
+            .get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    window.alert(doc.id, " => ", doc.data());
+                });
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
         }
         
     });
@@ -97,7 +108,6 @@ db.collection('Workshop').get().then(snapshot => {
         renderInfo(doc);
     });
 });
-
 
 // Function that add data to the server
 form.addEventListener('submit', (e) => {
