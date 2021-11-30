@@ -1,20 +1,21 @@
 const studentList = document.querySelector('#student-list');
+const workshopList = document.querySelector('#workshop-list');
 const form = document.querySelector('#add-student-form');
-const VAL = document.getElementById('select1').options[document.getElementById('select1').selectedIndex].value;
+// const VAL = document.getElementById('select1').options[document.getElementById('select1').selectedIndex].value;
 
 var complete = 1;
 // create element & render cafe
 
-
-function badFormat(){
+function goodFormat(){
     return (
-    (form.name.value != "")  &&
-    (form.lname.value != "") &&    
-    (form.id.value != "")  &&
-    (form.city.value != "Campus") &&
-    (form.period.value != "Semestre"))
+        (form.period.value != 'Period') &&
+        (form.campus.value != 'Campus') &&
+        (form.id.value !='Taller') &&
+        (form.start.value < form.end.value)
+    )
     ? true : false;
 }
+
 function renderStudent(doc){
     let li = document.createElement('tr');
     let name = document.createElement('td');
@@ -22,20 +23,24 @@ function renderStudent(doc){
     let id = document.createElement('td');
     let city = document.createElement('td');
     let period = document.createElement('td');
-    // let work = document.createElement('td');
+    let work = document.createElement('td');
     let td = document.createElement('td');
     let cross = document.createElement('button');
 
     li.setAttribute('data-id', doc.id);
-    name.textContent = doc.data().Name;
+    name.textContent = doc.data().Id;
+
+    let date = new Date(doc.data().Start_time);
 
 
-    lname.textContent = doc.data().Last_name;
-    period.textContent = doc.data().Current_period;
-    // work.textContent = doc.data().Workid;
-    id.textContent = doc.data().Id;
+    lname.textContent = doc.data().Campus_id;
+    id.textContent = doc.data().Workshop_id;
+
+    city.textContent = doc.data().Start_time.toDate();
+
+    period.textContent = doc.data().End_time.toDate();
     // name.addClass('Hola');
-    city.textContent = doc.data().Campus_id;
+    work.textContent = doc.data().Period;
     cross.textContent = 'Eliminar';
     cross.classList.add("btn");
     cross.classList.add("btn-outline-primary");
@@ -45,7 +50,7 @@ function renderStudent(doc){
     li.appendChild(id);
     li.appendChild(city);
     li.appendChild(period);
-    // li.appendChild(work);
+    li.appendChild(work);
     td.appendChild(cross);
     li.appendChild(cross);
     studentList.appendChild(li);
@@ -58,41 +63,73 @@ function renderStudent(doc){
         if (result) {
             //Logic to delete the item
         let id = e.target.parentElement.getAttribute('data-id');
-        db.collection('Users').doc(id).delete();
+        db.collection('Available_workshop').doc(id).delete();
         }
         
     });
+}
+
+
+function renderInfo(doc){
+    let principal = document.createElement('div');
+    principal.setAttribute('work-id', doc.id);
+
+    principal.innerHTML = 
+    '<div class="card text-white bg-dark mb-3" >' +
+    '<div class="card-header text-dark">'+doc.data().Id+'</div>' + 
+    '<div class="card-body">' + 
+      '<h5 class="card-title">'+doc.data().Name+'</h5>' + 
+      '<p class="card-text">'+doc.data().Description+'</p>'+
+    '</div> </div>'
+    workshopList.appendChild(principal);
 
 }
 
 // getting data
-db.collection('Users').where("Role","==","Student").get().then(snapshot => {
+db.collection('Available_workshop').get().then(snapshot => {
     snapshot.docs.forEach(doc => {
         renderStudent(doc);
     });
 });
 
+db.collection('Workshop').get().then(snapshot => {
+    snapshot.docs.forEach(doc => {
+        renderInfo(doc);
+    });
+});
+
+
 // Function that add data to the server
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    if(badFormat()){
-        // window.alert(form.name.value);
-        db.collection('Users').add({
-            Name: form.name.value,
-            Last_name: form.lname.value,
-            Id: form.id.value,
-            Campus_id: form.city.value,
-            Current_period: form.period.value,
-            Role: "Student"
+    if(goodFormat()){
+        
+        var proiodAcronym;        
+        if  (form.period.value == "Enero-Abril 2021") {
+            periodAcronym = "EA21"
+        } else if (form.period.value == "Mayo-Agosto 2021"){
+            periodAcronym = "MA21";
+        } else {
+            periodAcronym = "SD21";
+        }
+       
+        db.collection('Available_workshop').add({
+            Period: form.period.value,
+            Campus_id: form.campus.value,
+            Workshop_id: form.id.value,
+            Start_time: firebase.firestore.Timestamp.fromDate(new Date(form.start.value)),
+            End_time: firebase.firestore.Timestamp.fromDate(new Date(form.end.value)),
+            Id: ("a" + form.id.value + "-" + form.campus.value + "-" + periodAcronym),
         });
-        form.name.value = '';
-        form.lname.value = '';
-        form.id.value = '';
-        form.city.value = '';
-        // form.workid.value = '';
+        window.alert("Taller agregado correctamente");
         form.period.value = '';
-        window.alert("Alumno ingresado exitosamente");
+        form.campus.value = '';
+        form.id.value = '';
+        form.start.value = '';
+        form.end.value = '';
+        
+        
     }else{
         window.alert("Formato incorrecto");
     }
@@ -132,36 +169,3 @@ function myFunction() {
       }       
     }
   }
-
-function Upload() {
-    var fileUpload = document.getElementById("fileUpload");
-    var regex = /^([a-zA-Z0-9\s_\.-:])+(.csv|.txt)$/;
-    window.alert("Alumno ingresado exitosamente");
-    if (true) {
-        if (typeof (FileReader) != "undefined") {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var rows = e.target.result.split("\n");
-                for (var i = 0; i < rows.length; i++) {
-                    var cells = rows[i].split(",");
-                    if (cells.length > 1 && i > 0) {
-                        db.collection('Users').add({
-                            Name: cells[0],
-                            Last_name: cells[1],
-                            Id: cells[2],
-                            Campus_id: cells[3],
-                            // Workshop_id: form.workid.value,
-                            Current_period: cells[4],
-                            Role: "Student"
-                        });
-                    }
-                }
-            }
-            reader.readAsText(fileUpload.files[0]);
-        } else {
-            alert("This browser does not support HTML5.");
-        }
-    } else {
-        alert("Please upload a valid CSV file.");
-    }
-}

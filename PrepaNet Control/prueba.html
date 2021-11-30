@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Estudiantes</title>
-    <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-firestore.js"></script>    
-    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
-    <link rel="stylesheet" href="assets/css/untitled-1.css">
-    <link rel="stylesheet" href="assets/css/untitled-2.css">
-    <link rel="stylesheet" href="assets/css/untitled-3.css">
-    <link rel="stylesheet" href="assets/css/untitled.css">
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Workshop</title>
+        <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-firestore.js"></script>    
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+        <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+        <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+        <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product-1.css">
+        <link rel="stylesheet" href="assets/css/Swiper-Slider-Card-For-Blog-Or-Product.css">
+        <link rel="stylesheet" href="assets/css/untitled-1.css">
+        <link rel="stylesheet" href="assets/css/untitled-2.css">
+        <link rel="stylesheet" href="assets/css/untitled-3.css">
+        <link rel="stylesheet" href="assets/css/untitled.css">
+    </head>
 <body id="page-top">
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-navbar p-0">
@@ -28,8 +28,8 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-pie-chart"></i><span>Control</span></a></li></li>
-                    <li class="nav-item"><a class="nav-link active" href="table.html"><i class="fas fa-table"></i><span>Estudiantes</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="prueba.html"><i class="fas fa-institution"></i><span>Talleres</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="table.html"><i class="fas fa-table"></i><span>Estudiantes</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="prueba.html"><i class="fas fa-institution"></i><span>Talleres</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>                    
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
@@ -131,56 +131,41 @@
                         </ul>
                     </div>
                 </nav>
-                <div class="container-fluid col">
-                    <h3 class="text-dark mb-4">Estudiantes</h3>
-
+                <div class="container-fluid">
                     <div class="col">
                         <div class="card shadow">
                             <div class="card-header py-3">
-                                <p class="text-primary m-0 fw-bold">Subir Archivo</p>
+                                <p class="text-primary m-0 fw-bold">Talleres</p>
                             </div>
                             <div class="card-body">
                                 <div class="col">
-                                    <div class="alert alert-primary" role="alert"><span><strong>Instrucciones:</strong> Antes de ingresar un archivo csv verifique que el formato concuerde con el siguiente.</span></div>
+                                    <div class="alert alert-primary" role="alert"><span><strong>Instrucciones:</strong> A continuacion se desplegara la información sobre los cursos.</span></div>
                                 </div>
-                                <div class="col text-center">
-                                    <div >
-                                        <img src="assets/img/PrepaNet/info.png" class="rounded" alt="Responsive image">
-                                    </div>
-                                </div>
-                                <h3 class="text-dark mb-4"></h3>
-                                <div class="col">
-                                    <input  type="file" class="custom-file-input" id="fileUpload" />
-                                    <input class="btn btn-outline-primary" type="button" id="upload" value="Upload" onclick="Upload()" />
-                                </div>
+                                <div class="card-columns" id='workshop-list'>
                             </div>
                         </div>
                     </div>
-                    
                     <div class="col">
-                    <h3 class="text-dark mb-4"></h3>
+                    <h3 class="text-dark mb-4"> </h3>
                     <div class="card shadow">
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Información de los Estudiantes</p>
+                            <p class="text-primary m-0 fw-bold">Talleres disponibles</p>
                         </div>
-                        
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 text-nowrap">
                                     <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label class="form-label"><div>
-
-                            <div class="input-group mb-3 edtFormMarg">
+                                        <div class="input-group mb-3 edtFormMarg">
                             
-                            <select class="d-line-block form-select form-select-sm" id="select1">
-                                <option selected>Campus</option>
-                                <option value="MTY">Monterrey</option>
-                                <option value="GDA">Guadalajara</option>
-                                <option value="CDMX">Santa Fe</option>
-                                <option value="4">Puebla</option>
-
-                            </select>
-                            </div>
-                            
+                                            <select class="d-line-block form-select form-select-sm">
+                                                <option selected>Campus</option>
+                                                <option value="MTY">Monterrey</option>
+                                                <option value="GDA">Guadalajara</option>
+                                                <option value="CDMX">Santa Fe</option>
+                                                <option value="4">Puebla</option>
+                
+                                            </select>
+                                            </div>
                             </div></label></div>
                             </div>
                                 <div class="col-md-6">
@@ -193,59 +178,67 @@
                                 <table class="table my-0" id="tbl_exporttable_to_xls" >
                                     <thead>
                                         <tr>
-                                            <th>Nombres</th>
-                                            <th>Apellidos</th>
-                                            <th>Matricula</th>
+                                            <th>Id del Taller</th>
                                             <th>Campus</th>
-                                            <th>Semestre</th>
-                                            <!-- <th>Taller</th> -->
+                                            <th>Taller</th>
+                                            <th>Tiempo de Inicio</th>
+                                            <th>Tiempo Final</th>
+                                            <th>Periodo</th>
                                             <th>Editar</th>
-                                            <th></th>
                                         </tr>
                                     </thead>
                                     
                                 <div class="content">
 
                                     <form id="add-student-form">
-                                        <td><input class="form-control" type="text" name="name" placeholder="Name"></td>
-                                        <td><input class="form-control" type="text" name="lname" placeholder="Last name"></td>
-                                        <td><input class="form-control" type="text" name="id" placeholder="id"></td>
-                                        <td><select class=" form-control d-line-block form-select" name="city">
-                                            <option selected>Campus</option>
-                                            <option value="MTY">Monterrey</option>
-                                            <option value="GDA">Guadalajara</option>
-                                            <option value="CSF">Santa Fe</option>
-                                            <option value="PUE">Puebla</option>
-                                        </select></td>
-                                        <td><select class=" form-control d-line-block form-select" name="period">
-                                            <option selected>Semestre</option>
-                                            <option value="1">Primero</option>
-                                            <option value="2">Segundo</option>
-                                            <option value="3">Tercero</option>
-                                            <option value="4">Cuarto</option>
-                                            <option value="5">Quinto</option>
-                                            <option value="6">Sexto</option>
-                                            <option value="7">Septimo</option>
-                                            <option value="8">Octavo</option>
-                                        </select></td>
-                                        <!-- <td><select class=" form-control d-line-block form-select" name="workid">
-                                            <option selected>Taller</option>
-                                            <option value="a0001">a0001</option>
-                                            <option value="a0002">a0002</option>
-                                            <option value="a0003">a0003</option>
-                                        </select></td> -->
-                                        <td><button class="btn btn-primary"">Agregar alumno</button></td>
+                                        <td><input class="form-control" type="text" value= "Automatically Generated" readonly></td>
+                                        <td>
+                                            <select class="d-line-block form-select form-select-sm" name="campus">
+                                                <option selected>Campus</option>
+                                                <option value="MTY">Monterrey</option>
+                                                <option value="GDA">Guadalajara</option>
+                                                <option value="CSF">Santa Fe</option>
+                                                <option value="PUE">Puebla</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="d-line-block form-select form-select-sm" name="id">
+                                                <option selected>Taller</option>
+                                                <option value="w01">w01</option>
+                                                <option value="w02">w02</option>
+                                                <option value="w03">w03</option>
+                                                <option value="w04">w04</option>
+                                                <option value="w05">w05</option>
+                                                <option value="w06">w06</option>
+                                            </select>
+                                        </td>
+                                        
+                                        <td><input class="form-control" type="datetime-local" name="start" placeholder="Campus"></td>
+                                        <td><input class="form-control" type="datetime-local" name="end" placeholder="Period"></td>
+                                        <td>
+                                            <select class="d-line-block form-select form-select-sm" name="period">
+                                                <option selected>Periodo</option>
+                                                <option value="Enero-Abril 2021">Enero-Abril 2021</option>
+                                                <option value="Mayo-Agosto 2021">Mayo-Agosto 2021</option>
+                                                <option value="Septiembre-Diciembre 2021">Septiembre-Diciembre 2021</option>
+                                        
+                                            </select>
+                                        </td>
+                                        
+                                        
+                                        <td><button class="btn btn-primary"">Agregar</button></td>
                                     </form>
                                 </div>
                                     <tbody id="student-list"></tbody>
                                     <tfoot>
                                         <tr>
-                                            <td><strong>Nombres</strong></td>
-                                            <td><strong>Apellidos</strong></td>
-                                            <td><strong>Matricula</strong></td>
-                                            <td><strong>Campus</strong></td>
-                                            <td><strong>Semestre</strong></td>
-                                            <!-- <td><strong>Taller</strong><strong></strong></td> -->
+                                            <th>Id del Taller</th>
+                                            <th>Campus</th>
+                                            <th>Taller</th>
+                                            <th>Tiempo de Inicio</th>
+                                            <th>Tiempo Final</th>
+                                            <th>Periodo</th>
+                                            <th>Editar</th>
                                             <!-- <td><strong>Editar</strong><strong></strong></td> -->
                                             <td><button class="btn btn-outline-primary" onclick="ExportToExcel('xlsx')">Convertir a Excel</button></td>
                                         </tr>
@@ -270,7 +263,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    </div>
                 </div>
             </div>
             <footer class="bg-white sticky-footer">
@@ -295,13 +288,13 @@
         const db = firebase.firestore();
         db.settings({ timestampsInSnapshots: true }); 
     </script>
-    <script src="assets/js/table.js"></script>
+    <script src="assets/js/workshop.js"></script>
+    <script src="assets/js/log.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/log.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/theme.js"></script>
-    <script src="jquery-csv.js"></script>
-
+    <script src="assets/js/Swiper-Slider-Card-For-Blog-Or-Product.js"></script>
     
     
 </body>
